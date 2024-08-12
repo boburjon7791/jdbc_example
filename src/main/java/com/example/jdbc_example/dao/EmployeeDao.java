@@ -103,7 +103,16 @@ public class EmployeeDao {
         Map<String, Object> params=Map.of(Employee._id, id);
         namedParameterJdbcTemplate.update("delete from employees where id=:id", params);
     }
-
+    /**
+     * in this method, multiple insert queries will be generated like the following this
+     *
+     * insert into employees(first_name, last_name, username, created_at, deleted, active) values('John', 'Jackson', 'john123', now(), false, true);
+     * insert into employees(first_name, last_name, username, created_at, deleted, active) values('Jack', 'Jackson2', 'jack123', now(), false, true);
+     * insert into employees(first_name, last_name, username, created_at, deleted, active) values('Alisa', 'Alimovna', 'alis123', now(), false, true);
+     * insert into employees(first_name, last_name, username, created_at, deleted, active) values('Johnaton', 'Jackson', 'john12', now(), false, true);
+     *
+     * insert queries count depends on list size
+    * */
     // save list with jdbc batch update
     public Set<EmployeeGetDTO> saveAll(Set<EmployeeCreateDTO> createDTOSet) {
         String sql = "insert into employees(first_name, last_name, username, created_at, deleted, active) values(:first_name, :last_name, :username, now(), false, true)";
