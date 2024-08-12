@@ -104,6 +104,7 @@ public class EmployeeDao {
         namedParameterJdbcTemplate.update("delete from employees where id=:id", params);
     }
 
+    // save list with jdbc batch update
     public Set<EmployeeGetDTO> saveAll(Set<EmployeeCreateDTO> createDTOSet) {
         String sql = "insert into employees(first_name, last_name, username, created_at, deleted, active) values(:first_name, :last_name, :username, now(), false, true)";
         Map[] mapArray = createDTOSet.parallelStream()
