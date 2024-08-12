@@ -103,6 +103,7 @@ public class EmployeeDao {
         Map<String, Object> params=Map.of(Employee._id, id);
         namedParameterJdbcTemplate.update("delete from employees where id=:id", params);
     }
+
     /**
      * in this method, multiple insert queries will be generated like the following this
      *
