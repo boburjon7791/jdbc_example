@@ -32,16 +32,16 @@ public class EmployeeService {
 
         /**
          * this is result of saving time for 100 rows
-         * Duration.between(start, end).toNanos() = 50306100
          * Duration.between(start, end).toMillis() = 50
+         * Duration.between(start, end).toNanos() = 50306100
          *
          * this is result of saving time for 10000 rows
-         * Duration.between(start, end).toNanos() = 441779500
          * Duration.between(start, end).toMillis() = 441
+         * Duration.between(start, end).toNanos() = 441779500
          *
          * this is result of saving time for 1000000 rows
-         * Duration.between(start, end).toNanos() = 34880042900
          * Duration.between(start, end).toMillis() = 34880
+         * Duration.between(start, end).toNanos() = 34880042900
          * */
         System.out.println("Duration.between(start, end).toMillis() = " + Duration.between(start, end).toMillis());
         System.out.println("Duration.between(start, end).toNanos() = " + Duration.between(start, end).toNanos());
