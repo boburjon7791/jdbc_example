@@ -43,8 +43,8 @@ public class EmployeeService {
          * Duration.between(start, end).toNanos() = 34880042900
          * Duration.between(start, end).toMillis() = 34880
          * */
-        System.out.println("Duration.between(start, end).toNanos() = " + Duration.between(start, end).toNanos());
         System.out.println("Duration.between(start, end).toMillis() = " + Duration.between(start, end).toMillis());
+        System.out.println("Duration.between(start, end).toNanos() = " + Duration.between(start, end).toNanos());
         return employeeGetDTOS;
     }
     public Set<EmployeeGetDTO> saveAllWithRepository(Set<EmployeeCreateDTO> createDTOSet){
