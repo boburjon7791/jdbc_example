@@ -38,15 +38,6 @@ public class EmployeeDao {
                         .addValue("p_last_name", createDTO.lastName())
                         .addValue("p_username", createDTO.username())
                 );
-//        int inserted = namedParameterJdbcTemplate.update(insertOne, params);
-        /*if (inserted==0) {
-            throw new RuntimeException("Error");
-        }*/
-        /*namedParameterJdbcTemplate.update("CALL save_employee(:firstName, :lastName, :username);", Map.of(
-                "firstName", createDTO.firstName(),
-                "lastName", createDTO.lastName(),
-                "username", createDTO.username()
-        ));*/
         return findByUsername(createDTO.username());
     }
 
