@@ -104,7 +104,7 @@ public class EmployeeDao {
         namedParameterJdbcTemplate.update("delete from employees where id=:id", params);
     }
 
-    /**
+    /*
      * in this method, multiple insert queries will be generated like the following this
      *
      * insert into employees(first_name, last_name, username, created_at, deleted, active) values('John', 'Jackson', 'john123', now(), false, true);
