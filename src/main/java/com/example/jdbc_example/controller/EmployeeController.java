@@ -1,11 +1,15 @@
 package com.example.jdbc_example.controller;
 
+import com.example.jdbc_example.dao.EmployeeProjection;
 import com.example.jdbc_example.model.request.EmployeeCreateDTO;
 import com.example.jdbc_example.model.request.EmployeeUpdateDTO;
 import com.example.jdbc_example.model.response.EmployeeGetDTO;
 import com.example.jdbc_example.service.EmployeeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -54,5 +58,20 @@ public class EmployeeController {
                 .username(createDTO.username() + " " + i.getAndIncrement())
                 .build()).limit(100).collect(Collectors.toSet());
         return employeeService.saveAllWithRepository(collect);
+    }
+    @GetMapping("/jpql")
+    public Page<EmployeeProjection> findAllWithJpql(
+            @RequestParam(required = false, defaultValue = "0") int page,
+            @RequestParam(required = false, defaultValue = "10") int size
+    ){
+        return employeeService.findAllEmployeeWithJpql(PageRequest.of(page, size));
+    }
+
+    @GetMapping("/sql")
+    public Page<EmployeeProjection> findAllWithSql(
+            @RequestParam(required = false, defaultValue = "0") int page,
+            @RequestParam(required = false, defaultValue = "10") int size
+    ){
+        return employeeService.findAllEmployeeWithSql(PageRequest.of(page, size));
     }
 }

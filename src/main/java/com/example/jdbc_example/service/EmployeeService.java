@@ -1,12 +1,15 @@
 package com.example.jdbc_example.service;
 
 import com.example.jdbc_example.dao.EmployeeDao;
+import com.example.jdbc_example.dao.EmployeeProjection;
 import com.example.jdbc_example.dao.EmployeeRepository;
 import com.example.jdbc_example.model.base.Employee;
 import com.example.jdbc_example.model.request.EmployeeCreateDTO;
 import com.example.jdbc_example.model.request.EmployeeUpdateDTO;
 import com.example.jdbc_example.model.response.EmployeeGetDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -79,5 +82,12 @@ public class EmployeeService {
     }
     public void deleteById(Long id){
         employeeDao.deleteById(id);
+    }
+    public Page<EmployeeProjection> findAllEmployeeWithJpql(Pageable pageable){
+        return employeeRepository.findAllEmployeesJpql(pageable);
+    }
+
+    public Page<EmployeeProjection> findAllEmployeeWithSql(Pageable pageable){
+        return employeeRepository.findAllEmployeesSql(pageable);
     }
 }
