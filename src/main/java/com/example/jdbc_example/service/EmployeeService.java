@@ -10,6 +10,7 @@ import com.example.jdbc_example.model.response.EmployeeGetDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -87,7 +88,15 @@ public class EmployeeService {
         return employeeRepository.findAllEmployeesJpql(pageable);
     }
 
+    public Page<Object[]> findAllEmployeeWithJpqlObjectArray(Pageable pageable){
+        return employeeRepository.findAllEmployeesJpqlObjectArray(pageable);
+    }
+
     public Page<EmployeeProjection> findAllEmployeeWithSql(Pageable pageable){
         return employeeRepository.findAllEmployeesSql(pageable);
+    }
+
+    public Page<Object[]> findAllEmployeeWithSqlObjectArray(Pageable pageable){
+        return employeeRepository.findAllEmployeesSqlObjectArray(pageable);
     }
 }

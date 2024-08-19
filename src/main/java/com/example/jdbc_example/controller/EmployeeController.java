@@ -1,6 +1,8 @@
 package com.example.jdbc_example.controller;
 
 import com.example.jdbc_example.dao.EmployeeProjection;
+import com.example.jdbc_example.model.base.ApiResponse;
+import com.example.jdbc_example.model.base.PaginationData;
 import com.example.jdbc_example.model.request.EmployeeCreateDTO;
 import com.example.jdbc_example.model.request.EmployeeUpdateDTO;
 import com.example.jdbc_example.model.response.EmployeeGetDTO;
@@ -9,9 +11,11 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.web.PagedModel;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -60,11 +64,12 @@ public class EmployeeController {
         return employeeService.saveAllWithRepository(collect);
     }
     @GetMapping("/jpql")
-    public Page<EmployeeProjection> findAllWithJpql(
+    public ApiResponse<List<EmployeeProjection>> findAllWithJpql(
             @RequestParam(required = false, defaultValue = "0") int page,
             @RequestParam(required = false, defaultValue = "10") int size
     ){
-        return employeeService.findAllEmployeeWithJpql(PageRequest.of(page, size));
+        Page<EmployeeProjection> employee = employeeService.findAllEmployeeWithJpql(PageRequest.of(page, size));
+        return ApiResponse.ok(employee.getContent(), PaginationData.of(employee));
     }
 
     @GetMapping("/sql")
@@ -73,5 +78,22 @@ public class EmployeeController {
             @RequestParam(required = false, defaultValue = "10") int size
     ){
         return employeeService.findAllEmployeeWithSql(PageRequest.of(page, size));
+    }
+
+    @GetMapping("/jpql/object-array")
+    public ApiResponse<List<Object[]>> findAllWithJpqlObjectArray(
+            @RequestParam(required = false, defaultValue = "0") int page,
+            @RequestParam(required = false, defaultValue = "10") int size
+    ){
+        Page<Object[]> employee = employeeService.findAllEmployeeWithJpqlObjectArray(PageRequest.of(page, size));
+        return ApiResponse.ok(employee.getContent(), PaginationData.of(employee));
+    }
+
+    @GetMapping("/sql/object-array")
+    public Page<Object[]> findAllWithSqlObjectArray(
+            @RequestParam(required = false, defaultValue = "0") int page,
+            @RequestParam(required = false, defaultValue = "10") int size
+    ){
+        return employeeService.findAllEmployeeWithSqlObjectArray(PageRequest.of(page, size));
     }
 }
