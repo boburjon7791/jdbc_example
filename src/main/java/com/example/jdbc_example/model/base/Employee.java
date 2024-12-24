@@ -28,6 +28,7 @@ public class Employee extends BaseModel {
     private String username;
     @Builder.Default
     private Boolean active=true;
+
     public static final String _firstName="first_name";
     public static final String _lastName="last_name";
     public static final String _username="username";
